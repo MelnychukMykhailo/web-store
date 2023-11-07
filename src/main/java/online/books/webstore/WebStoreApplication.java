@@ -1,8 +1,8 @@
 package online.books.webstore;
 
+import java.math.BigDecimal;
 import online.books.webstore.model.Book;
 import online.books.webstore.service.BookService;
-import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
