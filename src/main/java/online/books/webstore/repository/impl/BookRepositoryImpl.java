@@ -3,11 +3,13 @@ package online.books.webstore.repository.impl;
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import online.books.webstore.exception.DataProcessingException;
+import online.books.webstore.exception.EntityNotFoundException;
 import online.books.webstore.model.Book;
 import online.books.webstore.repository.BookRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -52,6 +54,18 @@ public class BookRepositoryImpl implements BookRepository {
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Can't get all books", e);
+        }
+    }
+
+    @Override
+    public Book getBookById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<Book> bookById = session.createQuery(
+                    "FROM Book b WHERE b.id = :id", Book.class);
+            bookById.setParameter("id", id);
+            return bookById.getSingleResult();
+        } catch (Exception e) {
+            throw new EntityNotFoundException("Book with id " + id + " not found.", e);
         }
     }
 }
