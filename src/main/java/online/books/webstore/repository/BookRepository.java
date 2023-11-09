@@ -1,12 +1,10 @@
 package online.books.webstore.repository;
 
-import java.util.List;
 import online.books.webstore.model.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BookRepository {
-    Book save(Book book);
-
-    List<Book> findAll();
-
+public interface BookRepository extends JpaRepository<Book, Long> {
     Book getBookById(Long id);
+
+    boolean existsById(Long id);
 }
