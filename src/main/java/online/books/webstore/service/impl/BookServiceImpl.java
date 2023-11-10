@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import online.books.webstore.dto.BookDto;
 import online.books.webstore.dto.BookSearchParametersDto;
 import online.books.webstore.dto.CreateBookRequestDto;
+import online.books.webstore.exception.DataProcessingException;
 import online.books.webstore.exception.EntityNotFoundException;
 import online.books.webstore.mapper.BookMapper;
 import online.books.webstore.model.Book;
@@ -23,6 +24,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto save(CreateBookRequestDto createBookRequestDto) {
+        if (bookRepository.existsByIsbn(createBookRequestDto.getIsbn())) {
+            throw new DataProcessingException("Book with such isbn "
+                    + createBookRequestDto.getIsbn() + " already exist.");
+        }
         Book book = bookMapper.toModel(createBookRequestDto);
         return bookMapper.toDto(bookRepository.save(book));
     }
@@ -37,7 +42,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto getBookById(Long id) {
-        return bookMapper.toDto(bookRepository.getBookById(id));
+        return bookMapper.toDto(bookRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Can't find book by id:" + id)));
     }
 
     @Override
