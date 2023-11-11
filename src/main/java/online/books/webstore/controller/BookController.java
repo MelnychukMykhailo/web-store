@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import online.books.webstore.dto.BookDto;
+import online.books.webstore.dto.BookSearchParametersDto;
 import online.books.webstore.dto.CreateBookRequestDto;
 import online.books.webstore.service.BookService;
 import org.springframework.http.HttpStatus;
@@ -48,5 +49,10 @@ public class BookController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBookById(@PathVariable Long id) {
         bookService.deleteBookById(id);
+    }
+
+    @GetMapping("/search")
+    public List<BookDto> searchBooks(BookSearchParametersDto searchParameters) {
+        return bookService.search(searchParameters);
     }
 }
