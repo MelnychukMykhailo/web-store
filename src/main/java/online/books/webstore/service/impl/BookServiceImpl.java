@@ -12,6 +12,7 @@ import online.books.webstore.model.Book;
 import online.books.webstore.repository.book.BookRepository;
 import online.books.webstore.repository.book.BookSpecificationBuilder;
 import online.books.webstore.service.BookService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +34,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> findAll() {
-        return bookRepository.findAll()
+    public List<BookDto> findAll(Pageable pageable) {
+        return bookRepository.findAll(pageable)
                 .stream()
                 .map(bookMapper::toDto)
                 .toList();
