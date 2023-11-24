@@ -42,7 +42,6 @@ public class User implements UserDetails {
     private String lastName;
     @Column(name = "shipping_address")
     private String shippingAddress;
-    //How I can avoid FetchType.EAGER and didn't catch exception?
     @ManyToMany
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
