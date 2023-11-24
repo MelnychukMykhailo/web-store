@@ -44,7 +44,7 @@ public class User implements UserDetails {
     @Column(name = "shipping_address")
     private String shippingAddress;
     //How I can avoid FetchType.EAGER and didn't catch exception?
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinTable(name = "users_roles",
