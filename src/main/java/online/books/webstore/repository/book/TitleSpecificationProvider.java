@@ -2,7 +2,7 @@ package online.books.webstore.repository.book;
 
 import java.util.Arrays;
 import online.books.webstore.model.Book;
-import online.books.webstore.repository.SpecificationProvider;
+import online.books.webstore.repository.specification.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 

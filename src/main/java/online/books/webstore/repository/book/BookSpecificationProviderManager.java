@@ -3,8 +3,8 @@ package online.books.webstore.repository.book;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import online.books.webstore.model.Book;
-import online.books.webstore.repository.SpecificationProvider;
-import online.books.webstore.repository.SpecificationProviderManager;
+import online.books.webstore.repository.specification.SpecificationProvider;
+import online.books.webstore.repository.specification.SpecificationProviderManager;
 import org.springframework.stereotype.Component;
 
 @Component
