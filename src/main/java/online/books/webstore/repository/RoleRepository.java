@@ -1,4 +1,4 @@
-package online.books.webstore.repository.user;
+package online.books.webstore.repository;
 
 import java.util.Optional;
 import online.books.webstore.model.Role;

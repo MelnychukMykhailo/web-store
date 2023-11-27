@@ -8,7 +8,7 @@ import online.books.webstore.exception.RegistrationException;
 import online.books.webstore.mapper.UserMapper;
 import online.books.webstore.model.Role;
 import online.books.webstore.model.User;
-import online.books.webstore.repository.user.UserRepository;
+import online.books.webstore.repository.UserRepository;
 import online.books.webstore.service.RoleService;
 import online.books.webstore.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;

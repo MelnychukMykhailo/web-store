@@ -1,4 +1,4 @@
-package online.books.webstore.repository;
+package online.books.webstore.repository.specification;
 
 public interface SpecificationProviderManager<T> {
     SpecificationProvider<T> getSpecificationProvider(String key);
