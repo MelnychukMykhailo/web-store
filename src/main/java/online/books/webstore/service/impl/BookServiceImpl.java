@@ -1,6 +1,7 @@
 package online.books.webstore.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import online.books.webstore.dto.book.BookDto;
 import online.books.webstore.dto.book.BookSearchParametersDto;
@@ -9,6 +10,7 @@ import online.books.webstore.exception.DataProcessingException;
 import online.books.webstore.exception.EntityNotFoundException;
 import online.books.webstore.mapper.BookMapper;
 import online.books.webstore.model.Book;
+import online.books.webstore.repository.CategoryRepository;
 import online.books.webstore.repository.book.BookRepository;
 import online.books.webstore.repository.book.BookSpecificationBuilder;
 import online.books.webstore.service.BookService;
@@ -22,6 +24,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     private final BookSpecificationBuilder bookSpecificationBuilder;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public BookDto save(CreateBookRequestDto createBookRequestDto) {
@@ -30,6 +33,12 @@ public class BookServiceImpl implements BookService {
                     + createBookRequestDto.getIsbn() + " already exist.");
         }
         Book book = bookMapper.toModel(createBookRequestDto);
+        book.setCategories(createBookRequestDto.getCategoryIds()
+                .stream()
+                .map(id -> categoryRepository.findById(id).orElseThrow(() ->
+                        new EntityNotFoundException("Can't create book with category id: "
+                                + id)))
+                .collect(Collectors.toSet()));
         return bookMapper.toDto(bookRepository.save(book));
     }
 
@@ -54,6 +63,12 @@ public class BookServiceImpl implements BookService {
         }
         Book book = bookMapper.toModel(createBookRequestDto);
         book.setId(id);
+        book.setCategories(createBookRequestDto.getCategoryIds()
+                .stream()
+                .map(catId -> categoryRepository.findById(catId).orElseThrow(() ->
+                        new EntityNotFoundException("Can't update book with category id: "
+                                + catId)))
+                .collect(Collectors.toSet()));
         return bookMapper.toDto(bookRepository.save(book));
     }
 
